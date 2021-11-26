@@ -21,3 +21,9 @@ def test_three_node_graph():
     assert (
             tsp.travel('A', 'C', [('A', 'B', 't'), ('B', 'C', 't')]) == ['A', 'B', 'C']
     ), 'expected to have traveled to C through B'
+
+
+def test_three_node_graph_eschewing_flight_for_train():
+    assert (
+            tsp.travel('A', 'C', [('A', 'C', 'f'), ('A', 'B', 't'), ('B', 'C', 't')]) == ['A', 'B', 'C']
+    ), 'expected to have traveled to C through B because there is a train only path'
