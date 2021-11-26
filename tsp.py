@@ -19,9 +19,7 @@ def travel(from_, to, graph_data):
     for opt in options:
         for num_flights, path in _all_paths_with_flights(_flatten(opt)):
             path_by_flights[num_flights].append(path)
-
-            if num_flights < min_flights:
-                min_flights = num_flights
+            min_flights = min(num_flights, min_flights)
 
     return list(reversed(min(path_by_flights[min_flights], key=len)))
 
