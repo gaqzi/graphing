@@ -1,2 +1,2 @@
-def travel(from_, to_, graph_data):
-    return []
+def travel(from_, to, graph_data):
+    return [from_, to]
