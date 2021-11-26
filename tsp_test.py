@@ -4,7 +4,6 @@ import tsp
 
 
 def test_integration():
-    pytest.skip('Not ready yet')
     graph_data = [('A', 'C', 't'), ('A', 'D', 't'), ('D', 'I', 'f'), ('E', 'F', 't'), ('B', 'E', 't'),
                   ('B', 'F', 't'), ('E', 'H', 'f'), ('G', 'H', 't'), ('H', 'I', 't')]
 
@@ -33,3 +32,16 @@ def test_three_node_graph_where_flight_required():
     assert (
             tsp.travel('A', 'C', [('A', 'B', 't'), ('B', 'C', 'f')]) == ['A', 'B', 'C']
     ), 'expected to have traveled to C through B with a flight'
+
+
+def test_four_node_graph_where_flight_required_from_one():
+    assert (
+            tsp.travel(
+                from_='H',
+                to='B',
+                graph_data=[
+                    ('E', 'F', 't'), ('B', 'E', 't'),
+                    ('B', 'F', 't'), ('E', 'H', 'f')
+                ]
+            ) == ['H', 'E', 'B']
+    ), 'expected to have traveled to D through B since it is the only one with a connection'
