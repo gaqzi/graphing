@@ -22,6 +22,11 @@ def test_three_node_graph():
     ), 'expected to have traveled to C through B'
 
 
+def test_no_path():
+    with pytest.raises(Exception, match='did not find any paths'):
+        tsp.travel('A', 'C', [('A', 'B', 't'), ('D', 'C', 't')])
+
+
 def test_three_node_graph_eschewing_flight_for_train():
     assert (
             tsp.travel('A', 'C', [('A', 'C', 'f'), ('A', 'B', 't'), ('B', 'C', 't')]) == ['A', 'B', 'C']

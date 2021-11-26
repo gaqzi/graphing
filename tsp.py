@@ -33,10 +33,18 @@ def _find_all(from_, to, where, visited=None):
 
     if len(connections) == 1:
         dest = connections[0]
+        if dest[0] in visited:
+            return []
+
         if dest[0] in [from_, to]:
             return [path + [dest]]
 
-        return [path + _find_all(from_, dest[0], where, visited + [dest[0]])]
+        ps = _find_all(from_, dest[0], where, visited + [dest[0]])
+        if ps:
+            for i, _ in enumerate(ps):
+                ps[i][0] = dest
+
+            return [path + [ps]]
 
     options = []
     for conn in connections:
