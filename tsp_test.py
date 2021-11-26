@@ -15,3 +15,9 @@ def test_simple_train_graph():
     assert (
             tsp.travel('A', 'B', [('A', 'B', 't')]) == ['A', 'B']
     ), 'expected to have picked the only possible destination in ascending order'
+
+
+def test_three_node_graph():
+    assert (
+            tsp.travel('A', 'C', [('A', 'B', 't'), ('B', 'C', 't')]) == ['A', 'B', 'C']
+    ), 'expected to have traveled to C through B'

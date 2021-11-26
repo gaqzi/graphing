@@ -1,2 +1,30 @@
+from collections import defaultdict
+
+
 def travel(from_, to, graph_data):
-    return [from_, to]
+    where = defaultdict(list)
+
+    for start, end, type_ in graph_data:
+        where[start].append([end, type_])
+
+    path = [to]
+    current = to
+    while current != from_:
+        connection = _connection_for(current, where)
+        if connection is None:
+            raise f'failed to find a connection to {current}'
+
+        path.append(connection)
+        current = connection
+
+    path.reverse()
+    return path
+
+
+def _connection_for(to, where):
+    for start, connections in where.items():
+        for end, _ in connections:
+            if end == to:
+                return start
+
+    return None
