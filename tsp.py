@@ -31,21 +31,6 @@ def _find_all(from_, to, where, visited=None):
     path = [to]
     connections = where[to]
 
-    if len(connections) == 1:
-        dest = connections[0]
-        if dest[0] in visited:
-            return []
-
-        if dest[0] in [from_, to]:
-            return [path + [dest]]
-
-        ps = _find_all(from_, dest[0], where, visited + [dest[0]])
-        if ps:
-            for i, _ in enumerate(ps):
-                ps[i][0] = dest
-
-            return [path + [ps]]
-
     options = []
     for conn in connections:
         if conn[0] in visited:
