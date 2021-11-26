@@ -9,7 +9,7 @@ def travel(from_, to, graph_data):
         where[start].append((end, type_))
         where[end].append((start, type_))
 
-    options = _find_all(from_, to, where)
+    options = _find_all(to, from_, where)
 
     if not options:
         raise Exception('did not find any paths :(')
@@ -21,24 +21,24 @@ def travel(from_, to, graph_data):
             path_by_flights[num_flights].append(path)
             min_flights = min(num_flights, min_flights)
 
-    return list(reversed(min(path_by_flights[min_flights], key=len)))
+    return list(min(path_by_flights[min_flights], key=len))
 
 
-def _find_all(from_, to, where, visited=None):
-    visited = visited or [to]
-    path = [to]
-    connections = where[to]
+def _find_all(to, from_, where, visited=None):
+    visited = visited or [from_]
+    path = [from_]
+    connections = where[from_]
 
     options = []
     for conn in connections:
         if conn[0] in visited:
             continue
 
-        if conn[0] == from_:
+        if conn[0] == to:
             options.append(path + [conn])
             continue  # if it's where we're going from then we've found a full path
 
-        ps = _find_all(from_, conn[0], where, visited + [conn[0]])
+        ps = _find_all(to, conn[0], where, visited + [conn[0]])
         if ps:
             for i, _ in enumerate(ps):
                 ps[i][0] = conn
