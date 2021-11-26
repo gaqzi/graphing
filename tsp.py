@@ -22,9 +22,15 @@ def travel(from_, to, graph_data):
 
 
 def _connection_for(to, where):
+    options = []
     for start, connections in where.items():
         for end, type_ in connections:
-            if end == to and type_ != 'f':
-                return start
+            if end == to:
+                options.append([start, type_])
 
-    return None
+    if len(options) == 1:
+        return options[0][0]
+
+    for (start, type_) in options:
+        if type_ != 'f':
+            return start
