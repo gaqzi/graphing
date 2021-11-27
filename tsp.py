@@ -40,7 +40,7 @@ def _find_all_paths(to, from_, where, visited=None):
         ps = _find_all_paths(to, conn[0], where, visited + [conn[0]])
         if ps:
             for i, _ in enumerate(ps):
-                ps[i][0] = conn
+                ps[i][0] = conn  # make sure we store whether flight/train
 
             options.append(path + ps)
 
