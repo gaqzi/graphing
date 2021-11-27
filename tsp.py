@@ -36,7 +36,7 @@ def _find_all(to, from_, where, visited=None):
 
         if conn[0] == to:
             options.append(path + [conn])
-            continue  # if it's where we're going from then we've found a full path
+            continue  # if it's where we're going to then we've found a full path
 
         ps = _find_all(to, conn[0], where, visited + [conn[0]])
         if ps:
