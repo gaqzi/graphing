@@ -17,7 +17,7 @@ def travel(from_, to, graph_data):
     path_by_flights = defaultdict(list)
     min_flights = math.inf
     for opt in options:
-        for num_flights, path in _all_paths_with_flights(_flatten(opt)):
+        for num_flights, path in _all_paths_with_flights(opt):
             path_by_flights[num_flights].append(path)
             min_flights = min(num_flights, min_flights)
 
@@ -46,17 +46,6 @@ def _find_all(to, from_, where, visited=None):
             options.append(path + ps)
 
     return options
-
-
-def _flatten(l):
-    ret = l
-
-    if isinstance(l, list):
-        ret = []
-        for i in l:
-            ret.append(i)
-
-    return ret
 
 
 def _all_paths_with_flights(options):
