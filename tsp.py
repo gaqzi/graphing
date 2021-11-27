@@ -28,13 +28,13 @@ def _find_all_paths(to, from_, where, visited=None):
     path = [from_]
     connections = where[from_]
 
-    options = []
+    paths = []
     for conn in connections:
         if conn[0] in visited:
             continue
 
         if conn[0] == to:
-            options.append(path + [conn])
+            paths.append(path + [conn])
             continue  # if it's where we're going to then we've found a full path
 
         ps = _find_all_paths(to, conn[0], where, visited + [conn[0]])
@@ -42,17 +42,17 @@ def _find_all_paths(to, from_, where, visited=None):
             for i, _ in enumerate(ps):
                 ps[i][0] = conn  # make sure we store whether flight/train
 
-            options.append(path + ps)
+            paths.append(path + ps)
 
-    return options
+    return paths
 
 
-def _all_paths_with_num_flights(options):
+def _all_paths_with_num_flights(paths):
     path = []
     num_flights = 0
     has_returned_forked_paths = False
 
-    for node in options:
+    for node in paths:
         if isinstance(node, tuple):
             if node[1] == 'f':
                 num_flights += 1
