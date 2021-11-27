@@ -50,7 +50,7 @@ def _find_all_paths(to, from_, where, visited=None):
 def _all_paths_with_num_flights(options):
     path = []
     num_flights = 0
-    has_returned_subpaths = False
+    has_returned_forked_paths = False
 
     for node in options:
         if isinstance(node, tuple):
@@ -60,9 +60,11 @@ def _all_paths_with_num_flights(options):
         elif isinstance(node, list):
             for num, pp in _all_paths_with_num_flights(node):
                 yield num_flights + num, path + pp
-                has_returned_subpaths = True
+                has_returned_forked_paths = True
         else:
             path.append(node)
 
-    if not has_returned_subpaths:
+    # if we have already returned then this would return a duplicate
+    # of the path that lead up to the fork.
+    if not has_returned_forked_paths:
         yield num_flights, path
